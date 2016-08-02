@@ -1,26 +1,6 @@
-# Ember-native-dom-event-dispatcher
+# ember-native-dom-event-dispatcher
 
-This README outlines the details of collaborating on this Ember addon.
+`ember-native-dom-event-dispatcher` is intended to be used with Ember 2.9.0-alpha.1 and higher.
+It replaces the default event dispatcher in use by Ember apps with one that does not use jQuery.
 
-## Installation
-
-* `git clone` this repository
-* `npm install`
-* `bower install`
-
-## Running
-
-* `ember serve`
-* Visit your app at http://localhost:4200.
-
-## Running Tests
-
-* `npm test` (Runs `ember try:testall` to test your addon against multiple Ember versions)
-* `ember test`
-* `ember test --server`
-
-## Building
-
-* `ember build`
-
-For more information on using ember-cli, visit [http://ember-cli.com/](http://ember-cli.com/).
+In general, this should be a drop in replacement for `Ember.EventDispatcher` (which is the default).
