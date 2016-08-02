@@ -126,4 +126,19 @@ export default Ember.EventDispatcher.extend({
 
     rootElement.addEventListener(event, handleEvent);
   },
+
+  destroy() {
+    let rootElement = get(this, 'rootElement');
+    rootElement = document.querySelector(rootElement);
+
+    for (let event in this._eventHandlers) {
+      rootElement.removeEventListener(event, this._eventHandlers[event]);
+    }
+
+    if (rootElement.classList) {
+      rootElement.classList.remove(ROOT_ELEMENT_CLASS);
+    } else {
+      rootElement.className = rootElement.className.replace(new RegExp('(^|\\b)' + ROOT_ELEMENT_CLASS.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+    }
+  }
 });
