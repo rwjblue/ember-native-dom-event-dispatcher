@@ -1,7 +1,7 @@
 {
   "name": "ember-native-dom-event-dispatcher",
   "version": "0.5.2",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "Replace the default Ember event dispatcher with one that uses native DOM events. With ember@2.9.0+ allows ember-cli app usage without jQuery...",
   "directories": {
     "test": "tests"
   },
