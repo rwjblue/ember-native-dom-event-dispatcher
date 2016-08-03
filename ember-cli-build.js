@@ -3,9 +3,13 @@
 var EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
 module.exports = function(defaults) {
-  var app = new EmberAddon(defaults, {
-    // Add options here
-  });
+  var options = {};
+
+  if (['ember-alpha', 'ember-canary'].indexOf(process.env.EMBER_TRY_CURRENT_SCENARIO) > -1) {
+    options.vendorFiles = { 'jquery.js': null };
+  }
+
+  var app = new EmberAddon(defaults, options);
 
   /*
     This build file specifies the options for the dummy test app of this
@@ -13,6 +17,5 @@ module.exports = function(defaults) {
     This build file does *not* influence how the addon or the app using it
     behave. You most likely want to be modifying `./index.js` or app's build file
   */
-
   return app.toTree();
 };

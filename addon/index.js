@@ -51,9 +51,7 @@ export default Ember.EventDispatcher.extend({
   },
 
   setupHandler(rootElement, event, eventName) {
-    let self = this;
-
-    let owner = getOwner(this);
+    let owner = getOwner ? getOwner(this) : this.container;
     let viewRegistry = owner && owner.lookup('-view-registry:main');
 
     if (eventName === null) {
