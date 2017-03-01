@@ -127,7 +127,7 @@ export default Ember.EventDispatcher.extend({
         }
 
         target = target.parentNode;
-      } while(target);
+      } while(target && target.nodeType === 1);
     };
 
     rootElement.addEventListener(event, handleEvent);

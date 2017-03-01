@@ -62,3 +62,11 @@ test('actions are properly looked up when clicking nested contents', function(as
 
   click('button');
 });
+
+test('unhandled events do not trigger an error', function(assert) {
+  assert.expect(0);
+
+  this.render(hbs`<button>Click Me!</button>`);
+
+  click('button');
+});
