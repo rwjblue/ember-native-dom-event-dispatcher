@@ -27,8 +27,17 @@ export default Ember.EventDispatcher.extend({
 
     this._finalEvents = events;
 
-    if (!isNone(rootElement)) {
+    if (isNone(rootElement)) {
+      rootElement = get(this, 'rootElement');
+    } else {
       set(this, 'rootElement', rootElement);
+    }
+
+    let viewRegistry = this._getViewRegistry && this._getViewRegistry();
+    // present in ember-source@2.12+
+    if (!viewRegistry) {
+      let owner = getOwner ? getOwner(this) : this.container;
+      viewRegistry = owner && owner.lookup('-view-registry:main');
     }
 
     let rootElementSelector = get(this, 'rootElement');
@@ -46,15 +55,12 @@ export default Ember.EventDispatcher.extend({
 
     for (event in events) {
       if (events.hasOwnProperty(event)) {
-        this.setupHandler(rootElement, event, events[event]);
+        this.setupHandler(rootElement, event, events[event], viewRegistry);
       }
     }
   },
 
-  setupHandler(rootElement, event, eventName) {
-    let owner = getOwner ? getOwner(this) : this.container;
-    let viewRegistry = owner && owner.lookup('-view-registry:main');
-
+  setupHandler(rootElement, event, eventName, viewRegistry) {
     if (eventName === null) {
       return;
     }
