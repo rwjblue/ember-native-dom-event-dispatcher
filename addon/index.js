@@ -58,8 +58,8 @@ export default Ember.EventDispatcher.extend({
       return;
     }
 
-    let viewHandler = (event, triggeringManager) => {
-      let view = viewRegistry[event.target.id];
+    let viewHandler = (target, event, triggeringManager) => {
+      let view = viewRegistry[target.id];
       let result = true;
 
       let manager = this.canDispatchToEventManager ? this._findNearestEventManager(view, eventName) : null;
@@ -73,8 +73,8 @@ export default Ember.EventDispatcher.extend({
       return result;
     };
 
-    let actionHandler = (event) => {
-      let actionId = event.target.getAttribute('data-ember-action');
+    let actionHandler = (target, event) => {
+      let actionId = target.getAttribute('data-ember-action');
       let actions = ActionManager.registeredActions[actionId];
 
       // In Glimmer2 this attribute is set to an empty string and an additional
@@ -82,7 +82,7 @@ export default Ember.EventDispatcher.extend({
       // attributes need to be read so that a proper set of action handlers can
       // be coalesced.
       if (actionId === '') {
-        let attributes = event.target.attributes;
+        let attributes = target.attributes;
         let attributeCount = attributes.length;
 
         actions = [];
@@ -115,11 +115,19 @@ export default Ember.EventDispatcher.extend({
 
     let handleEvent = this._eventHandlers[event] = (event) => {
       let target = event.target;
-      if (viewRegistry[target.id]) {
-        return viewHandler(event);
-      } else if (target.hasAttribute('data-ember-action')) {
-        return actionHandler(event);
-      }
+      let result;
+
+      do {
+        if (viewRegistry[target.id]) {
+          result = viewHandler(target, event);
+          break;
+        } else if (target.hasAttribute('data-ember-action')) {
+          result = actionHandler(target, event);
+          break;
+        }
+
+        target = target.parentNode;
+      } while(target);
     };
 
     rootElement.addEventListener(event, handleEvent);
