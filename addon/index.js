@@ -12,6 +12,7 @@ export default Ember.EventDispatcher.extend({
     this._super(...arguments);
 
     this._eventHandlers = Object.create(null);
+    this.canDispatchToEventManager = false;
   },
 
   /*
@@ -58,15 +59,11 @@ export default Ember.EventDispatcher.extend({
       return;
     }
 
-    let viewHandler = (target, event, triggeringManager) => {
+    let viewHandler = (target, event) => {
       let view = viewRegistry[target.id];
       let result = true;
 
-      let manager = this.canDispatchToEventManager ? this._findNearestEventManager(view, eventName) : null;
-
-      if (manager && manager !== triggeringManager) {
-        result = this._dispatchEvent(manager, event, eventName, view);
-      } else if (view) {
+      if (view) {
         result = this._bubbleEvent(view, event, eventName);
       }
 
