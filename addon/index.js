@@ -118,14 +118,13 @@ export default Ember.EventDispatcher.extend({
 
     let handleEvent = this._eventHandlers[event] = (event) => {
       let target = event.target;
-      let result;
 
       do {
         if (viewRegistry[target.id]) {
-          result = viewHandler(target, event);
+          viewHandler(target, event);
           break;
         } else if (target.hasAttribute('data-ember-action')) {
-          result = actionHandler(target, event);
+          actionHandler(target, event);
           break;
         }
 
