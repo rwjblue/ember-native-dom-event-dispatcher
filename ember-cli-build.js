@@ -2,10 +2,12 @@
 const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
 module.exports = function(defaults) {
-  var options = {};
+  var options = {
+    vendorFiles: { 'jquery.js': null }
+  };
 
-  if (['ember-alpha', 'ember-canary'].indexOf(process.env.EMBER_TRY_CURRENT_SCENARIO) > -1) {
-    options.vendorFiles = { 'jquery.js': null };
+  if (process.env.EMBER_TRY_CURRENT_SCENARIO === 'ember-lts-2.8') {
+    delete options.vendorFiles;
   }
 
   var app = new EmberAddon(defaults, options);
