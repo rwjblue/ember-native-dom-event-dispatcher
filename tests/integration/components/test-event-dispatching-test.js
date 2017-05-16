@@ -81,7 +81,9 @@ test('events bubble up', function(assert) {
   }));
 
   this.register('component:input-element', Component.extend({
-    tagName: 'input'
+    tagName: 'input',
+
+    focusOut() {}
   }));
 
   this.render(hbs`{{#handles-focusout}}{{input-element}}{{/handles-focusout}}`);
