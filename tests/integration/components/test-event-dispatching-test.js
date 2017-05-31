@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import { click } from 'ember-native-dom-helpers';
+import { click, focus, blur } from 'ember-native-dom-helpers';
 
 const {
   Component
@@ -69,4 +69,25 @@ test('unhandled events do not trigger an error', function(assert) {
   this.render(hbs`<button>Click Me!</button>`);
 
   click('button');
+});
+
+test('events bubble up', function(assert) {
+  assert.expect(1);
+
+  this.register('component:handles-focusout', Component.extend({
+    focusOut() {
+      assert.ok(true, 'focusOut was fired!');
+    }
+  }));
+
+  this.register('component:input-element', Component.extend({
+    tagName: 'input',
+
+    focusOut() {}
+  }));
+
+  this.render(hbs`{{#handles-focusout}}{{input-element}}{{/handles-focusout}}`);
+
+  focus('input');
+  blur('input');
 });
