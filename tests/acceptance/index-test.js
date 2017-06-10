@@ -2,7 +2,7 @@ import Ember from 'ember';
 import { test } from 'qunit';
 import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
 import hbs from 'htmlbars-inline-precompile';
-import { click } from 'ember-native-dom-helpers';
+import { click, find } from 'ember-native-dom-helpers';
 import hasEmberVersion from 'ember-test-helpers/has-ember-version';
 
 const {
@@ -32,6 +32,15 @@ if (hasEmberVersion(2, 13)) {
 
     return andThen(function() {
       return click('#clickey');
+    });
+  });
+
+  test('root element has correct class name: ember-application', function(assert) {
+    visit('/');
+
+    return andThen(function() {
+      let testingRoot = find('');
+      assert.ok(testingRoot.classList.contains('ember-application'));
     });
   });
 

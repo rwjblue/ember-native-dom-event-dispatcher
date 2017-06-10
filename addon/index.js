@@ -5,7 +5,6 @@ const ActionManager = Ember.__loader.require('ember-views/system/action_manager'
 const { merge, get, set, isNone, getOwner } = Ember;
 
 const ROOT_ELEMENT_CLASS = 'ember-application';
-const ROOT_ELEMENT_SELECTOR = '.' + ROOT_ELEMENT_CLASS;
 
 export default Ember.EventDispatcher.extend({
   init() {
@@ -47,7 +46,7 @@ export default Ember.EventDispatcher.extend({
     //assert('You cannot make a new Ember.Application using a root element that is a descendent of an existing Ember.Application', !rootElement.closest(ROOT_ELEMENT_SELECTOR).length);
     //assert('You cannot make a new Ember.Application using a root element that is an ancestor of an existing Ember.Application', !rootElement.find(ROOT_ELEMENT_SELECTOR).length);
 
-    rootElement.className += ' ' + ROOT_ELEMENT_SELECTOR;
+    rootElement.className += (rootElement.className.length === 0 ? '' : ' ') + ROOT_ELEMENT_CLASS;
 
     //if (!rootElement.is(ROOT_ELEMENT_SELECTOR)) {
     //  throw new TypeError(`Unable to add '${ROOT_ELEMENT_CLASS}' class to root element (${rootElement.selector || rootElement[0].tagName}). Make sure you set rootElement to the body or an element in the body.`);
