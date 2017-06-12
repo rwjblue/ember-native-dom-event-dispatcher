@@ -91,3 +91,48 @@ test('events bubble up', function(assert) {
   focus('input');
   blur('input');
 });
+
+test('events are not stopped by default', function(assert) {
+  assert.expect(2);
+
+  this.on('submit', (e) => {
+    e.preventDefault();
+    assert.ok(true, 'submit was fired!');
+  });
+
+  this.register('component:submit-button', Component.extend({
+    tagName: 'button',
+    attributeBindings: ['type'],
+    type: 'submit',
+    click() {
+      assert.ok(true, 'button was clicked!');
+    }
+  }));
+
+  this.render(hbs`<form onsubmit={{action "submit"}}>{{submit-button}}</form>`);
+
+  click('button');
+});
+
+test('events are stopped when returning false from view handler', function(assert) {
+  assert.expect(1);
+
+  this.on('submit', (e) => {
+    e.preventDefault();
+    assert.notOk(true, 'submit should not be fired!');
+  });
+
+  this.register('component:submit-button', Component.extend({
+    tagName: 'button',
+    attributeBindings: ['type'],
+    type: 'submit',
+    click() {
+      assert.ok(true, 'button was clicked!');
+      return false;
+    }
+  }));
+
+  this.render(hbs`<form onsubmit={{action "submit"}}>{{submit-button}}</form>`);
+
+  click('button');
+});
