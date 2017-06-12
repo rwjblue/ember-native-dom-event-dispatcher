@@ -121,6 +121,8 @@ export default Ember.EventDispatcher.extend({
       do {
         if (viewRegistry[target.id]) {
           if (viewHandler(target, event) === false) {
+            event.preventDefault();
+            event.stopPropagation();
             break;
           }
         } else if (target.hasAttribute('data-ember-action')) {
