@@ -1,11 +1,7 @@
-import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { click, focus, blur } from 'ember-native-dom-helpers';
-
-const {
-  Component
-} = Ember;
+import Component from '@ember/component';
 
 moduleForComponent('ember-native-dom-event-dispatcher - integration tests', {
   integration: true

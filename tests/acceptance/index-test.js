@@ -1,13 +1,9 @@
-import Ember from 'ember';
 import { test } from 'qunit';
 import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
 import hbs from 'htmlbars-inline-precompile';
 import { click, find } from 'ember-native-dom-helpers';
 import hasEmberVersion from 'ember-test-helpers/has-ember-version';
-
-const {
-  Component
-} = Ember;
+import Component from '@ember/component';
 
 moduleForAcceptance('Acceptance | index', {
   beforeEach() {
