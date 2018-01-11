@@ -1,8 +1,10 @@
+import { merge } from '@ember/polyfills';
+import { get, set } from '@ember/object';
+import { isNone } from '@ember/utils';
+import { getOwner } from '@ember/application';
 import Ember from 'ember';
 
 const ActionManager = Ember.__loader.require('ember-views/system/action_manager').default;
-
-const { merge, get, set, isNone, getOwner } = Ember;
 
 const ROOT_ELEMENT_CLASS = 'ember-application';
 
