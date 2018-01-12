@@ -2,6 +2,9 @@
 ember-native-dom-event-dispatcher
 ==============================================================================
 
+**IMPORTANT:** This addon is not necessary in Ember 3.0.0-beta.2 or greater as the default event dispatcher
+already works without jQuery.
+
 `ember-native-dom-event-dispatcher` is intended to be used with Ember 2.9.0-alpha.1 and higher.
 It replaces the default event dispatcher in use by Ember apps with one that does not use jQuery.
 
